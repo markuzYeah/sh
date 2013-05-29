@@ -10,7 +10,7 @@
 prog="$(basename "$0")"
 #tmp="/tmp/$prog/id.$$"; mkdir -p "$tmp" || exit 1
 #tmp="$PWD/$prog.$$"
-tmp="$PWD/$prog"
+tmp="$PWD/.tmp-$prog"
 target="http://ratedata.gaincapital.com/"
 
 err=2
