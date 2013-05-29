@@ -33,7 +33,7 @@ fn_setup_sys(){
   #
   err=12
   gitRepo='.dotfiles'
-  gitAcc='tomatoNuts'
+  gitAcc='markuzYeah'
   gitAddress="git://github.com/$gitAcc/$gitRepo.git"
   #
   cd $HOME

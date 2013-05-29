@@ -28,15 +28,16 @@ fn_setup_sys(){
   #
   err=14
   cd $HOME
-  gitRepo='.dotfiles'
-  [ -e "$gitRepo" ] && return 0
-  [ -z "$GIT_PATH" ] && {
-    echo 'need to export GIT_PATH variable'
-    exit $err
-  }
+  gitRepo='sh'
+  gitAcc='markuzYeah'
+  gitAddress="git://github.com/$gitAcc/$gitRepo.git"
+
+  cd $HOME
+
+  [ -d "$HOME/$gitRepo" ] && return 0
   #
   plat='mac'
-  gitURL="https://raw.github.com/$GIT_PATH/sh/setup.git.bash"
+  gitURL="https://raw.github.com/$gitAcc/$gitRepo/setup.git.bash"
   python -c "import urllib2; print urllib2.urlopen('$gitURL').read()" | sh || exit $err
   echo "${HOST%%.*}, $plat"
   [ ${HOST%%.*} != "$plat" ] &&
@@ -48,6 +49,7 @@ fn_setup_sys(){
   cd $CUR_DIR
 
   #
+  # TODO:
   # setup startup scripts, bashrc, passwd, host
   #
   #
