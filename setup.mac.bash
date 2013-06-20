@@ -67,7 +67,7 @@ main(){
   [ -d "$BIN" ] || { mkdir -p "$BIN" || exit $err;}
   [ -d "$SRC" ] || { mkdir -p "$SRC" || exit $err;}
 
-  #fn_setup_init
+  fn_setup_init
   fn_setup_sys
 
   
