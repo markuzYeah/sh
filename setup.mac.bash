@@ -45,7 +45,17 @@ fn_setup_sys(){
 
   (mv -n .bash_profile .backup
   ln -s "$gitRepo/bash_profile" .bash_profile ) &> /dev/null
+  sed -i -e "s;HOST=.*;HOST=ub.$HOST;" "$HOME/.dotfiles/exportrc"
 
+   (ln -s ~/.dotfiles/bashrc ~/.bashrc
+   ln -s ~/.dotfiles/.dircolors ~/.dircolors
+   ln -s ~/.dotfiles/zshrc ~/.zshrc
+   ln -s ~/.dotfiles/aliasrc ~/.aliasrc
+   ln -s ~/.dotfiles/exportrc ~/.exportrc
+   ln -s ~/.dotfiles/fns ~/.fns
+   ln -s ~/.dotfiles/vimrc ~/.vimrc
+   ln -s ~/.dotfiles/vim ~/.vim ) 2>/dev/null
+   #
   cd $CUR_DIR
 
   #
