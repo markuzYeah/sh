@@ -4,8 +4,8 @@
 ##
 #
 
-gitAcc='tomatoNuts'
-gitRepo='lithium'
+gitAcc='markuzYeah'
+gitRepo='sh'
 gitBranch='master'
 
 export GIT_PATH="$gitAcc/$gitRepo/$gitBranch"

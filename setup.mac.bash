@@ -78,7 +78,6 @@ main(){
   [ -d "$SRC" ] || { mkdir -p "$SRC" || exit $err;}
 
   fn_setup_init
-  echo 'AAAAA'
   fn_setup_sys
 
   
