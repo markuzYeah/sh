@@ -2,7 +2,6 @@
 
 fn_setup_init(){
   #
-  echo 'AAAAA'
   which brew &> /dev/null || {
     err=10
     brewURL='https://github.com/mxcl/homebrew/tarball/master'
@@ -79,6 +78,7 @@ main(){
   [ -d "$SRC" ] || { mkdir -p "$SRC" || exit $err;}
 
   fn_setup_init
+  echo 'AAAAA'
   fn_setup_sys
 
   
