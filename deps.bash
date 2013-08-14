@@ -1,14 +1,15 @@
 #! /usr/bin/env sh
 
 fn_setup_redis(){
-  redisVer='2.6.12'
+  #redisVer='2.6.12'
+  redisVer='2.8.0-rc2'
   redisCurVer="$(redis-server --version |cut -d' ' -f3| cut -d'=' -f2)"
   if [ "$redisCurVer" = "$redisVer" ]; then
     return
   fi
 
-  redisURL="http://redis.googlecode.com/files/redis-$redisVer.tar.gz"
-  
+ # redisURL="http://redis.googlecode.com/files/redis-$redisVer.tar.gz"
+  redisURL="http://download.redis.io/releases/redis-$redisVer.tar.gz"
   err=10
   srcDir="redis-$redisVer"
 
@@ -24,8 +25,10 @@ fn_setup_redis(){
 }
 
 fn_setup_nodejs(){
-  #ndVer='0.8.21'
-  ndVer='0.10.5'
+  
+  #ndVer='0.10.15'
+  ndVer='0.11.5'
+
   ndCurVer="$(node --version| tr -d 'v')"
   if [ "$ndCurVer" = "$ndVer" ]; then
     return
@@ -48,16 +51,6 @@ fn_setup_nodejs(){
   cd "$CUR_DIR" || exit $err
 
 }
-
-fn_setup_apache(){
-  ver='2.4.3'
-  url="http://mirrors.gigenet.com/apache//httpd/httpd-$ver.tar.gz"
-  err=12
-
-  cd "$TMP" &&
-  curl "$url" | tar -zvx 
-}
-
 
 main(){
   
