@@ -36,6 +36,8 @@ fn_setup_nodejs(){
 
   ndURL="http://nodejs.org/dist/v$ndVer/node-v$ndVer.tar.gz"
 
+  rm "$BIN/node" "$BIN/npm"
+
   err=11
   cd "$TMP" &&
   curl "$ndURL" | tar -zvx &&
