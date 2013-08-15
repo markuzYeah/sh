@@ -26,8 +26,8 @@ fn_setup_redis(){
 
 fn_setup_nodejs(){
   
-  #ndVer='0.10.15'
-  ndVer='0.11.5'
+  ndVer='0.10.15'
+  #ndVer='0.11.5'
 
   ndCurVer="$(node --version| tr -d 'v')"
   if [ "$ndCurVer" = "$ndVer" ]; then
