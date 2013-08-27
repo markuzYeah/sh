@@ -29,11 +29,13 @@ fn_setup_nodejs(){
   ndVer='0.10.17'
   #ndVer='0.11.5'
 
-  ndCurVer="$(node --version| tr -d 'v')"
-  if [ "$ndCurVer" = "$ndVer" ]; then
-    echo "node version $ndVer already installed"
-    return
-  fi
+  # ndCurVer="$(node --version| tr -d 'v')"
+  # if [ "$ndCurVer" = "$ndVer" ]; then
+  #     echo
+  #     echo "node version $ndVer already installed"
+  #     echo
+  #   return
+  # fi
 
   ndURL="http://nodejs.org/dist/v$ndVer/node-v$ndVer.tar.gz"
 
