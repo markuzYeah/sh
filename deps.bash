@@ -2,7 +2,7 @@
 
 fn_setup_redis(){
   #redisVer='2.6.12'
-  redisVer='2.8.0-rc2'
+  redisVer='2.8.0-rc3'
   redisCurVer="$(redis-server --version |cut -d' ' -f3| cut -d'=' -f2)"
   if [ "$redisCurVer" = "$redisVer" ]; then
     return
@@ -26,7 +26,7 @@ fn_setup_redis(){
 
 fn_setup_nodejs(){
   
-  ndVer='0.10.15'
+  ndVer='0.10.17'
   #ndVer='0.11.5'
 
   ndCurVer="$(node --version| tr -d 'v')"
@@ -54,12 +54,18 @@ fn_setup_nodejs(){
 
 }
 
+fn_setup_ruby(){
+  echo 'ruby installing ...:while [[ condition ]]; do
+    #statements
+  done'
+}
+
 main(){
   
   CUR_DIR="$PWD"
   TMP="$CUR_DIR/.tmp/"
-  BIN="$CUR_DIR/.bin/"
-  SRC="$CUR_DIR/.src/"
+  BIN="$CUR_DIR/bin/"
+  SRC="$CUR_DIR/.tmp/src/"
 
   err=98
   [ -d "$TMP" ] || { mkdir -p "$TMP" || exit $err;}
@@ -68,6 +74,7 @@ main(){
 
   fn_setup_redis
   fn_setup_nodejs
+  fn_setup_ruby
   #fn_setup_apache
 }
 

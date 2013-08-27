@@ -2,7 +2,7 @@
 
 python -c 'import urllib2; print urllib2.urlopen("https://raw.github.com/markuzYeah/sh/master/installer.bash").read()' | sh
 
-### And to compile and install nodejs v0.10.15 and redis v2.8.0-rc2 on $PATH/.bin
+### And to compile and install nodejs v0.10.17 and redis v2.8.0-rc3 on $PATH/bin
 
 python -c 'import urllib2; print urllib2.urlopen("https://raw.github.com/markuzYeah/sh/master/deps.bash").read()' | sh
 
