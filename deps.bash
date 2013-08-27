@@ -78,8 +78,8 @@ main(){
   [ -d "$BIN" ] || { mkdir -p "$BIN" || exit $err;} 
   [ -d "$SRC" ] || { mkdir -p "$SRC" || exit $err;} 
 
-  fn_setup_redis
-  #fn_setup_nodejs
+  #fn_setup_redis
+  fn_setup_nodejs
   fn_setup_ruby
   #fn_setup_apache
 }
