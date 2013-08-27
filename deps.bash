@@ -67,8 +67,8 @@ main(){
   
   CUR_DIR="$PWD"
   TMP="$CUR_DIR/.tmp/"
-  BIN="$CUR_DIR/bin/"
-  SRC="$CUR_DIR/.tmp/src/"
+  BIN="$HOME/.bin/"
+  SRC="$TMP/src/"
 
   err=98
   [ -d "$TMP" ] || { mkdir -p "$TMP" || exit $err;}
