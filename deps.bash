@@ -2,6 +2,8 @@
 
 fn_setup_redis(){
   #redisVer='2.6.12'
+  
+
   redisVer='2.8.0-rc3'
   redisCurVer="$(redis-server --version |cut -d' ' -f3| cut -d'=' -f2)"
   if [ "$redisCurVer" = "$redisVer" ]; then
@@ -20,7 +22,7 @@ fn_setup_redis(){
   sleep 1 &&
   cd "$TMP/$srcDir/src" && 
   #make test &&
-  cp redis-benchmark redis-check-aof redis-check-dump redis-cli redis-server "$BIN" &&
+  cp redis-benchmark redis-check-aof redis-check-dump redis-cli redis-sentinel redis-server "$BIN" &&
   cd "$CUR_DIR" || exit $err
 }
 
@@ -66,17 +68,18 @@ fn_setup_ruby(){
 main(){
   
   CUR_DIR="$PWD"
-  TMP="$CUR_DIR/.tmp/"
+  TMP="$CUR_DIR/tmp/"
   BIN="$HOME/.bin/"
   SRC="$TMP/src/"
 
   err=98
+
   [ -d "$TMP" ] || { mkdir -p "$TMP" || exit $err;}
   [ -d "$BIN" ] || { mkdir -p "$BIN" || exit $err;} 
   [ -d "$SRC" ] || { mkdir -p "$SRC" || exit $err;} 
 
   fn_setup_redis
-  fn_setup_nodejs
+  #fn_setup_nodejs
   fn_setup_ruby
   #fn_setup_apache
 }
