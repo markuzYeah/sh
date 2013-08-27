@@ -31,6 +31,7 @@ fn_setup_nodejs(){
 
   ndCurVer="$(node --version| tr -d 'v')"
   if [ "$ndCurVer" = "$ndVer" ]; then
+    echo "node version $ndVer already installed"
     return
   fi
 
