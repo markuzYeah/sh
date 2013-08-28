@@ -5,24 +5,29 @@ fn_setup_redis(){
   
 
   redisVer='2.8.0-rc3'
-  redisCurVer="$(redis-server --version |cut -d' ' -f3| cut -d'=' -f2)"
-  if [ "$redisCurVer" = "$redisVer" ]; then
-    return
-  fi
+  [ -d "$BIN/redis-$redisVer" ] && return
+
+
+
+  # redisCurVer="$(redis-server --version |cut -d' ' -f3| cut -d'=' -f2)"
+  # if [ "$redisCurVer" = "$redisVer" ]; then
+  #   return
+  # fi
 
  # redisURL="http://redis.googlecode.com/files/redis-$redisVer.tar.gz"
   redisURL="http://download.redis.io/releases/redis-$redisVer.tar.gz"
   err=10
   srcDir="redis-$redisVer"
 
-  cd "$TMP" &&
+  cd "$BIN"
+  rm redis-benchmark redis-check-aof redis-check-dump redis-cli redis-sentinel redis-server 2>/dev/null
+
   curl "$redisURL" | tar -zvx &&
   cd "$srcDir" && 
   make && 
   sleep 1 &&
-  cd "$TMP/$srcDir/src" && 
   #make test &&
-  cp redis-benchmark redis-check-aof redis-check-dump redis-cli redis-sentinel redis-server "$BIN" &&
+  ln -s "$srcDir/src/redis-benchmark" "$srcDir/src/redis-check-aof" "$srcDir/src/redis-check-dump" "$srcDir/src/redis-cli" "$srcDir/src/redis-sentinel" "$srcDir/src/redis-server" "$BIN/." &&
   cd "$CUR_DIR" || exit $err
 }
 
@@ -30,6 +35,8 @@ fn_setup_nodejs(){
   
   ndVer='0.10.17'
   #ndVer='0.11.5'
+
+  [ -d "$BIN/node-v$ndVer" ] && continue
 
   # ndCurVer="$(node --version| tr -d 'v')"
   # if [ "$ndCurVer" = "$ndVer" ]; then
@@ -41,47 +48,46 @@ fn_setup_nodejs(){
 
   ndURL="http://nodejs.org/dist/v$ndVer/node-v$ndVer.tar.gz"
 
-  rm "$BIN/node" "$BIN/npm"
+  cd "$BIN"
+  rm node npm 2>/dev/null
 
   err=11
-  cd "$TMP" &&
-  curl "$ndURL" | tar -zvx &&
-  cd "node-v$ndVer" &&
-  ./configure --prefix="$SRC" &&
-  make &&
-  make install &&
-  #make test &&
-  cp "out/Release/node" "$BIN/node-v$ndVer" &&
-  ln -s "$BIN/node-v$ndVer" "$BIN/node" &&
-  cp -R "deps/npm" "$BIN/npm-node-v$ndVer" &&
-  ln -s "$BIN/npm-node-v$ndVer/bin/npm-cli.js" "$BIN/npm" &&
+  curl "$ndURL" | tar -zvx && 
+  cd "$BIN/node-v$ndVer"
+  ./configure && make & make install && cd "$BIN"
+  # #make test &&
+  ln -s "node-v$ndVer/out/Release/node" "$BIN/node" &&
+  ln -s "node-v$ndVer/deps/npm/bin/npm-cli.js" "$BIN/npm" &&
   cd "$CUR_DIR" || exit $err
 
 }
 
 fn_setup_ruby(){
-  echo 'ruby installing ...:while [[ condition ]]; do
-    #statements
-  done'
+  echo 'ruby installing ...'
+}
+
+fn_setup_nginx(){
+  echo 'nginx installing ...'
+}
+
+fn_setup_test(){
+  echo 'NOW tme to test\nthis step must be done separated, everytime a VM reboots, juts in case'
 }
 
 main(){
   
   CUR_DIR="$PWD"
-  TMP="$CUR_DIR/tmp/"
   BIN="$HOME/.bin/"
-  SRC="$TMP/src/"
 
   err=98
 
-  [ -d "$TMP" ] || { mkdir -p "$TMP" || exit $err;}
   [ -d "$BIN" ] || { mkdir -p "$BIN" || exit $err;} 
-  [ -d "$SRC" ] || { mkdir -p "$SRC" || exit $err;} 
 
-  #fn_setup_redis
+  fn_setup_redis
   fn_setup_nodejs
   fn_setup_ruby
-  #fn_setup_apache
+  fn_setup_nginx
+  fn_setup_test
 }
 
 main
