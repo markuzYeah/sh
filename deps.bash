@@ -46,25 +46,21 @@ fn_setup_nodejs(){
     return
   }
 
-  # ndCurVer="$(node --version| tr -d 'v')"
-  # if [ "$ndCurVer" = "$ndVer" ]; then
-  #     echo
-  #     echo "node version $ndVer already installed"
-  #     echo
-  #   return
-  # fi
-
   ndURL="http://nodejs.org/dist/v$ndVer/node-v$ndVer.tar.gz"
 
   cd "$BIN"
+  # this source is a dummy one, just to the make not fail
+  src="/tmp/node-v$ndVer-src"
+
+  [ -d "$src" ] || { mkdir -p "$src" || exit $err;}
+  
   rm node npm 2>/dev/null
 
   err=11
   curl "$ndURL" | tar -zvx && 
   cd "$BIN/node-v$ndVer"
-  #./configure && make & make install && cd "$BIN"
-  ./configure && make & cd "$BIN"
-  # #make test &&
+  ./configure --prefix="$src" && make & make install && cd "$BIN"
+
   ln -s "node-v$ndVer/out/Release/node" "$BIN/node" &&
   ln -s "node-v$ndVer/deps/npm/bin/npm-cli.js" "$BIN/npm" &&
   cd "$CUR_DIR" || exit $err
@@ -73,15 +69,15 @@ fn_setup_nodejs(){
 
 
 fn_setup_mongodb(){
-  echo 'mongodb installing ...'
+  echo '\nmongodb installing ...'
 }
 
 fn_setup_ruby(){
-  echo 'ruby installing ...'
+  echo '\nruby installing ...'
 }
 
 fn_setup_nginx(){
-  echo 'nginx installing ...'
+  echo '\nnginx installing ...'
 }
 
 fn_setup_test(){
