@@ -5,7 +5,11 @@ fn_setup_redis(){
   
 
   redisVer='2.8.0-rc3'
-  [ -d "$BIN/redis-$redisVer" ] && return
+  [ -d "$BIN/redis-$redisVer" ] && {
+    echo 'skiping redis ...'
+    sleep 2
+    return
+  }
 
 
 
@@ -36,7 +40,11 @@ fn_setup_nodejs(){
   ndVer='0.10.17'
   #ndVer='0.11.5'
 
-  [ -d "$BIN/node-v$ndVer" ] && continue
+  [ -d "$BIN/node-v$ndVer" ] && {
+    echo 'skipping nodejs...' 
+    sleep 2
+    return
+  }
 
   # ndCurVer="$(node --version| tr -d 'v')"
   # if [ "$ndCurVer" = "$ndVer" ]; then
@@ -54,12 +62,18 @@ fn_setup_nodejs(){
   err=11
   curl "$ndURL" | tar -zvx && 
   cd "$BIN/node-v$ndVer"
-  ./configure && make & make install && cd "$BIN"
+  #./configure && make & make install && cd "$BIN"
+  ./configure && make & cd "$BIN"
   # #make test &&
   ln -s "node-v$ndVer/out/Release/node" "$BIN/node" &&
   ln -s "node-v$ndVer/deps/npm/bin/npm-cli.js" "$BIN/npm" &&
   cd "$CUR_DIR" || exit $err
 
+}
+
+
+fn_setup_mongodb(){
+  echo 'mongodb installing ...'
 }
 
 fn_setup_ruby(){
@@ -71,19 +85,20 @@ fn_setup_nginx(){
 }
 
 fn_setup_test(){
-  echo 'NOW tme to test\nthis step must be done separated, everytime a VM reboots, juts in case'
+  echo '\n\nNOW tme to test\nthis step must be done separated, everytime a VM reboots, juts in case'
 }
 
 main(){
   
   CUR_DIR="$PWD"
-  BIN="$HOME/.bin/"
+  BIN="$HOME/bin/"
 
   err=98
 
   [ -d "$BIN" ] || { mkdir -p "$BIN" || exit $err;} 
 
   fn_setup_redis
+  fn_setup_mongodb
   fn_setup_nodejs
   fn_setup_ruby
   fn_setup_nginx
@@ -91,7 +106,7 @@ main(){
 }
 
 main
-echo 'done'
+echo '\n\ndone'
 
 
 
