@@ -74,6 +74,7 @@ fn_setup_mongodb(){
 
 fn_setup_ruby(){
   echo '\nruby installing ...'
+  curl -L https://get.rvm.io | bash -s stable --ruby --gems=compass,sass
 }
 
 fn_setup_nginx(){
@@ -87,7 +88,7 @@ fn_setup_test(){
 main(){
   
   CUR_DIR="$PWD"
-  BIN="$HOME/bin/"
+  BIN="$HOME/.bin/"
 
   err=98
 
