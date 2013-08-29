@@ -73,8 +73,18 @@ fn_setup_mongodb(){
 }
 
 fn_setup_ruby(){
+  
+  # this test could be better
+
+  skipInstall='yes'
+  rubyVer='2.0.0p247'
+  
+  which gem 2>/dev/null >/dev/null || skipInstall='no'
+  
+  [ "$(ruby -v | cut -d' ' -f2)" = "$rubyVer" ] || skipInstall='no'
+
   echo '\nruby installing ...'
-  curl -L https://get.rvm.io | bash -s stable --ruby --gems=compass,sass
+  [ "$skipInstall" = 'no' ] && curl -L https://get.rvm.io | bash -s stable --ruby --gems=compass,sass || echo 'skipping ruby...'  
 }
 
 fn_setup_nginx(){
@@ -88,7 +98,7 @@ fn_setup_test(){
 main(){
   
   CUR_DIR="$PWD"
-  BIN="$HOME/.bin/"
+  BIN="$HOME/bin/"
 
   err=98
 
