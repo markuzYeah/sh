@@ -10,7 +10,7 @@ gitBranch='master'
 
 export GIT_PATH="$gitAcc/$gitRepo/$gitBranch"
 
-if uname -v | grep -qi 'ubuntu|debian'; then
+if uname -v | grep -Eqi 'ubuntu|debian'; then
   setup="https://raw.github.com/$GIT_PATH/setup.ub.bash"
   deps="https://raw.github.com/$GIT_PATH/deps.bash"
 
