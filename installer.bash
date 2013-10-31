@@ -6,7 +6,7 @@
 
 gitAcc='markuzYeah'
 gitRepo='sh'
-gitBranch='master'
+gitBranch='ub1204'
 
 export GIT_PATH="$gitAcc/$gitRepo/$gitBranch"
 
