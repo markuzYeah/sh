@@ -22,7 +22,7 @@ fn_setup_init(){
   #
   err=11
   sudo apt-get -y update &&
-  sudo apt-get -y upgrade &&
+  #sudo apt-get -y upgrade &&
   sudo apt-get -y install --no-install-recommends $pkgsInstall &&
   sudo apt-get -y autoremove || exit $err
 }
