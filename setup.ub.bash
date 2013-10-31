@@ -23,7 +23,7 @@ fn_setup_init(){
   err=11
   sudo apt-get -y update &&
   sudo apt-get -y upgrade &&
-  sudo apt-get -y install $pkgsInstall &&
+  sudo apt-get -y install --no-install-recommends $pkgsInstall &&
   sudo apt-get -y autoremove || exit $err
 }
 #
@@ -32,7 +32,7 @@ fn_setup_sys(){
   # clone repo
   #
   err=12
-  gitRepo='.dotfiles'
+  gitRepo='dotfiles'
   gitAcc='markuzYeah'
   gitAddress="git://github.com/$gitAcc/$gitRepo.git"
   #
@@ -42,22 +42,22 @@ fn_setup_sys(){
   #
   # setup startup scripts, bashrc, passwd, host
   #
-  err=13
-  bak=~/.backup
-  #
-  [ -d "$bak" ] || { mkdir -p "$bak" || exit $err;}
-  mv ~/.bashrc  ~/.vimrc ~/.vim ~/.zshrc ~/.backups/. 2>/dev/null
-  sed -i -e "s;HOST=.*;HOST=ub.$HOST;" "$HOME/.dotfiles/exportrc"
-   (ln -s ~/.dotfiles/bashrc ~/.bashrc
-   ln -s ~/.dotfiles/.dircolors ~/.dircolors
-   ln -s ~/.dotfiles/zshrc ~/.zshrc
-   ln -s ~/.dotfiles/aliasrc ~/.aliasrc
-   ln -s ~/.dotfiles/exportrc ~/.exportrc
-   ln -s ~/.dotfiles/fns ~/.fns
-   ln -s ~/.dotfiles/vimrc ~/.vimrc
-   ln -s ~/.dotfiles/vim ~/.vim ) 2>/dev/null
-   #
-   cd "$CUR_DIR"
+  # err=13
+  # bak=~/.backup
+  # #
+  # [ -d "$bak" ] || { mkdir -p "$bak" || exit $err;}
+  # mv ~/.bashrc  ~/.vimrc ~/.vim ~/.zshrc ~/.backups/. 2>/dev/null
+  # sed -i -e "s;HOST=.*;HOST=ub.$HOST;" "$HOME/.dotfiles/exportrc"
+  #  (ln -s ~/.dotfiles/bashrc ~/.bashrc
+  #  ln -s ~/.dotfiles/.dircolors ~/.dircolors
+  #  ln -s ~/.dotfiles/zshrc ~/.zshrc
+  #  ln -s ~/.dotfiles/aliasrc ~/.aliasrc
+  #  ln -s ~/.dotfiles/exportrc ~/.exportrc
+  #  ln -s ~/.dotfiles/fns ~/.fns
+  #  ln -s ~/.dotfiles/vimrc ~/.vimrc
+  #  ln -s ~/.dotfiles/vim ~/.vim ) 2>/dev/null
+  #  #
+  #  cd "$CUR_DIR"
 }
 #
 main(){
